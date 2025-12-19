@@ -20,7 +20,8 @@ export default function Login() {
       navigate("/")
 
     } catch (error) {
-      console.log(error)
+      alert("login failed")
+      return console.log("loginerror",error)
     }
 
   }
