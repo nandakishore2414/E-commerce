@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import api from "../../axios";
+import api from "../api/axios";
 import { useNavigate } from "react-router-dom";
 import { LogginContext } from "../Context/LogginContext";
 
@@ -16,7 +16,7 @@ function ProductCard({ product }) {
     try {
       setError("");
       setAdding(true);
-      await api.post("/cart", { productId: product._id, quantity: 1 });
+      await api.post("/user/cart", { productId: product._id, quantity: 1 });
       navigate("/cart");
     } catch (err) {
       if (err.response?.status === 401) {
@@ -35,7 +35,7 @@ function ProductCard({ product }) {
 
       <div className="aspect-h-4 aspect-w-3 w-full overflow-hidden rounded-md bg-gray-100 lg:aspect-h-8 lg:aspect-w-7">
         <img
-          src={product.image ? `http://localhost:5000/uploads/${product.image}` : (product.imageUrl || 'https://via.placeholder.com/600x800.png?text=Product+Image')}
+          src={product.image ? `/api/uploads/${product.image}` : (product.imageUrl || 'https://via.placeholder.com/600x800.png?text=Product+Image')}
           alt={product.name}
           className="h-full w-full object-cover object-center group-hover:opacity-75 transition-opacity duration-300"
         />
@@ -73,7 +73,7 @@ function ProductList() {
   useEffect(() => {
     async function fetchProducts() {
       try {
-        const res = await api.get('/products');
+        const res = await api.get('/user/products');
         setProducts(res.data);
         setIsLoading(false);
       } catch (err) {

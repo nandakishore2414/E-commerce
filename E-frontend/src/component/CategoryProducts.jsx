@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
-import api from "../../axios";
+import api from "../api/axios";
 import Navbar from "./NavBar";
 import Footer from "./Footer";
 
@@ -11,7 +11,7 @@ function ProductCard({ product }) {
     <div className="group relative border border-gray-100 rounded-lg p-3 shadow-sm hover:shadow-md transition-shadow">
       <div className="aspect-h-4 aspect-w-3 w-full overflow-hidden rounded-md bg-gray-100 lg:aspect-h-8 lg:aspect-w-7">
         <img
-          src={product.image ? `http://localhost:5000/uploads/${product.image}` : 'https://via.placeholder.com/600x800.png?text=No+Image'}
+          src={product.image ? `/api/uploads/${product.image}` : 'https://via.placeholder.com/600x800.png?text=No+Image'}
           alt={product.name}
           className="h-full w-full object-cover object-center group-hover:opacity-75 transition-opacity duration-300"
         />
@@ -39,7 +39,7 @@ function CategoryProducts() {
         setIsLoading(true);
         setError(null);
 
-        const categoriesRes = await api.get('/categories');
+        const categoriesRes = await api.get('/user/categories');
         const foundCategory = categoriesRes.data.categories.find(
           cat => cat.slug === slug
         );
@@ -53,7 +53,7 @@ function CategoryProducts() {
         setCategory(foundCategory);
 
         // Fetch all products
-        const productsRes = await api.get('/products');
+        const productsRes = await api.get('/user/products');
 
         // Filter products by category ID
         const filteredProducts = productsRes.data.filter(product => {

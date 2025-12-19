@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import api from "../../axios";
+import api from "../api/axios";
 
 const Users = () => {
   const [users, setUsers] = useState([]);
@@ -7,7 +7,7 @@ const Users = () => {
   useEffect(() => {
     fetchUsers();
   }, []);
-  
+
   const fetchUsers = async () => {
     try {
       const res = await api.get("/admin/users");

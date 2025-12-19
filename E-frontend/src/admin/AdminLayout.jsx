@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, Outlet, useNavigate } from "react-router-dom";
-import api from "../../axios";
+import api from "../api/axios";
 
 const AdminLayout = () => {
   const navigate = useNavigate();
@@ -9,7 +9,7 @@ const AdminLayout = () => {
   useEffect(() => {
     checkLoginStatus();
   }, []);
-  
+
   const checkLoginStatus = async () => {
     try {
       const res = await api.get("/admin/check");
@@ -19,10 +19,10 @@ const AdminLayout = () => {
       setIsLoggedIn(false);
     }
   };
-  
+
   const handleLogout = async () => {
     try {
-      await api.delete("/logout");
+      await api.delete("/user/logout");
       setIsLoggedIn(false);
       navigate("/admin/login");
     } catch (err) {
@@ -47,7 +47,7 @@ const AdminLayout = () => {
 
       {/* Main Content */}
       <main className="p-6">
-        <Outlet/>
+        <Outlet />
       </main>
     </div>
   );

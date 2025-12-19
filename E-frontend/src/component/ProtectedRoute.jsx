@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
-import api from '../../axios';
+import api from "../api/axios";
 
 const ProtectedRoute = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(null);
@@ -8,10 +8,8 @@ const ProtectedRoute = ({ children }) => {
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                // Assuming you have an endpoint to check auth status, reusing check-auth from backend
-                // If not, we can try to hit a protected endpoint or check for potential session existence
-                // Based on authController.js, there is a '/check-auth' endpoint
-                const res = await api.get('/check-auth');
+                
+                const res = await api.get('/user/check-auth');
                 if (res.status === 200) {
                     setIsAuthenticated(true);
                 } else {

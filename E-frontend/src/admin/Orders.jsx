@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import api from "../../axios";
+import api from "../api/axios";
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -100,19 +100,18 @@ const Orders = () => {
                       value={order.status || "Placed"}
                       onChange={(e) => updateStatus(order._id, e.target.value)}
                       className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wide border-0 outline-none cursor-pointer
-                                                ${
-                                                  order.status === "Cancelled"
-                                                    ? "bg-red-100 text-red-800"
-                                                    : order.status ===
-                                                      "Delivered"
-                                                    ? "bg-green-100 text-green-800"
-                                                    : order.status === "Shipped"
-                                                    ? "bg-blue-100 text-blue-800"
-                                                    : order.status ===
-                                                      "Processing"
-                                                    ? "bg-yellow-100 text-yellow-800"
-                                                    : "bg-gray-100 text-gray-800"
-                                                }`}
+                                                ${order.status === "Cancelled"
+                          ? "bg-red-100 text-red-800"
+                          : order.status ===
+                            "Delivered"
+                            ? "bg-green-100 text-green-800"
+                            : order.status === "Shipped"
+                              ? "bg-blue-100 text-blue-800"
+                              : order.status ===
+                                "Processing"
+                                ? "bg-yellow-100 text-yellow-800"
+                                : "bg-gray-100 text-gray-800"
+                        }`}
                     >
                       <option value="Placed">Placed</option>
                       <option value="Processing">Processing</option>

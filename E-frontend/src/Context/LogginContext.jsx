@@ -1,5 +1,5 @@
 import { createContext, useState, useEffect } from "react";
-import api from "../../axios";
+import api from "../api/axios";
 
 export const LogginContext = createContext(null);
 
@@ -9,7 +9,7 @@ export const LogginProvider = ({ children }) => {
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                const res = await api.get("/check-auth");
+                const res = await api.get("/user/check-auth");
                 if (res.status === 200) {
                     setIsLogged(true);
                 }

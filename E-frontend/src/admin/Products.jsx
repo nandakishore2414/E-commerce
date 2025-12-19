@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import api from "../../axios";
+import api from "../api/axios";
 
 export default function Products() {
   const [products, setProducts] = useState([]);
@@ -169,7 +169,7 @@ export default function Products() {
                 <td className="p-4 border-r border-black">
                   {product.image ? (
                     <img
-                      src={`http://localhost:5000/uploads/${product.image}`}
+                      src={`/api/uploads/${product.image}`}
                       alt={product.name}
                       className="w-12 h-12 object-cover border border-black"
                     />

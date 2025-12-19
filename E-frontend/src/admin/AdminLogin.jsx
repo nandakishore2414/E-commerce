@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "../../axios";
+import api from "../api/axios";
 
 export default function AdminLogin() {
   const [email, setEmail] = useState("");

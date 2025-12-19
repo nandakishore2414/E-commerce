@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import api from "../../../axios";
+import api from "../../api/axios";
 import { LogginContext } from "../../Context/LogginContext";
 
 export default function Login() {
@@ -13,7 +13,7 @@ export default function Login() {
   async function handleLogin(e) {
     e.preventDefault()
     try {
-      const res = await api.post("/login", { email, password })
+      const res = await api.post("/user/login", { email, password })
       setIsLogged(true)
       console.log(res)
       alert("Login successfull.")
@@ -27,7 +27,7 @@ export default function Login() {
 
   async function handleLogout() {
     try {
-      const res = await api.post("/logout")
+      const res = await api.delete("/user/logout")
       console.log(res)
       alert("Logout success")
     } catch (error) {

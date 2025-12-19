@@ -1,5 +1,5 @@
 import { useEffect, useState, useCallback } from "react";
-import api from "../../axios";
+import api from "../api/axios";
 import { useNavigate } from "react-router-dom";
 
 export default function CartPage() {
@@ -11,7 +11,7 @@ export default function CartPage() {
   const fetchCart = useCallback(async () => {
     try {
       setError("");
-      const res = await api.get("/cart");
+      const res = await api.get("/user/cart");
       setCart(res.data || { items: [] });
     } catch (err) {
       if (err.response?.status === 401) {
@@ -32,7 +32,7 @@ export default function CartPage() {
   const updateQuantity = async (productId, quantity) => {
     if (quantity < 1) return;
     try {
-      await api.put(`/cart/${productId}`, { quantity });
+      await api.put(`/user/cart/${productId}`, { quantity });
       fetchCart();
     } catch (err) {
       console.error(err);
@@ -42,7 +42,7 @@ export default function CartPage() {
 
   const removeItem = async (productId) => {
     try {
-      await api.delete(`/cart/${productId}`);
+      await api.delete(`/user/cart/${productId}`);
       fetchCart();
     } catch (err) {
       console.error(err);
@@ -89,7 +89,7 @@ export default function CartPage() {
                   <div className="flex items-center gap-4">
                     {product.image ? (
                       <img
-                        src={`http://localhost:5000/uploads/${product.image}`}
+                        src={`/api/uploads/${product.image}`}
                         alt={product.name}
                         className="w-16 h-16 object-cover border"
                       />
@@ -146,10 +146,10 @@ export default function CartPage() {
             <button
               onClick={async () => {
                 try {
-                  const res = await api.post("/orders");
+                  const res = await api.post("/user/orders");
                   if (res.status === 200) {
                     alert("Order placed successfully!");
-                    setCart({ items: [] }); 
+                    setCart({ items: [] });
                     navigate("/orders");
                   }
                 } catch (error) {

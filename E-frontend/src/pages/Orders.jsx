@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import api from "../../axios";
+import api from "../api/axios";
 import { Link } from "react-router-dom";
 import Navbar from "../component/NavBar";
 import Footer from "../component/Footer";
@@ -13,7 +13,7 @@ const Orders = () => {
   const fetchOrders = async () => {
     try {
       setLoading(true);
-      const res = await api.get("/orders");
+      const res = await api.get("/user/orders");
       // Sort by Date Descending
       const sortedOrders = (res.data || []).sort(
         (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
@@ -35,7 +35,7 @@ const Orders = () => {
     if (!window.confirm("Are you sure you want to cancel this order?")) return;
 
     try {
-      await api.delete(`/order/${orderId}`);
+      await api.delete(`/user/order/${orderId}`);
       fetchOrders();
     } catch (err) {
       console.error("Error cancelling order:", err);
@@ -85,15 +85,14 @@ const Orders = () => {
             Status
           </span>
           <span
-            className={`inline-block px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-full ${
-              order.status === "Cancelled"
+            className={`inline-block px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-full ${order.status === "Cancelled"
                 ? "bg-red-100 text-red-800"
                 : order.status === "Delivered"
-                ? "bg-green-100 text-green-800"
-                : order.status === "Shipped"
-                ? "bg-blue-100 text-blue-800"
-                : "bg-yellow-100 text-yellow-800"
-            }`}
+                  ? "bg-green-100 text-green-800"
+                  : order.status === "Shipped"
+                    ? "bg-blue-100 text-blue-800"
+                    : "bg-yellow-100 text-yellow-800"
+              }`}
           >
             {order.status}
           </span>
@@ -110,7 +109,7 @@ const Orders = () => {
               <div className="w-16 h-16 srink border border-gray-200 bg-gray-50 overflow-hidden">
                 {product.image ? (
                   <img
-                    src={`http://localhost:5000/uploads/${product.image}`}
+                    src={`/api/uploads/${product.image}`}
                     alt={product.name}
                     className="w-full h-full object-cover"
                   />

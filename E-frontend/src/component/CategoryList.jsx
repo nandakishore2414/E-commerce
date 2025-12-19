@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import api from "../../axios";
+import api from "../api/axios";
 
 function CategoryList() {
   const [categories, setCategories] = useState([]);
@@ -9,7 +9,7 @@ function CategoryList() {
   useEffect(() => {
     async function fetchCategories() {
       try {
-        const res = await api.get("/categories");
+        const res = await api.get("/user/categories");
         setCategories(res.data.categories);
         setIsLoading(false);
       } catch (error) {

@@ -34,7 +34,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 // Serve static files from the 'uploads' directory
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+app.use('/api/uploads', express.static(path.join(__dirname, 'uploads')));
 
 await connectDB();
 
@@ -54,8 +54,8 @@ app.use(session({
   }
 }));
 
-app.use('/', router);
-app.use('/', UserRouter);
+app.use('/api/admin', router);
+app.use('/api/user', UserRouter);
 
 app.get('/', (req, res) => res.send('<h1>E-commerce Backend Running</h1>'));
 

@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import api from "../../axios";
+import api from "../api/axios";
 import { useContext } from "react";
 import { LogginContext } from "../Context/LogginContext";
 import { FaShoppingCart } from 'react-icons/fa';
@@ -10,7 +10,7 @@ export default function Navbar() {
 
   async function handleLogout() {
     try {
-      const res = await api.delete("/logout")
+      const res = await api.delete("/user/logout")
       setIsLogged(false)
       console.log(res)
       navigate("/")
