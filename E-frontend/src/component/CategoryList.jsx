@@ -14,7 +14,7 @@ function CategoryList() {
         setIsLoading(false);
       } catch (error) {
         setIsLoading(false);
-        console.error(error);
+        return console.error("categroy fetch error",error);
       }
     }
     fetchCategories();
